@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import Nav from './components/Nav';
+import Article from './components/Article';
 import './App.css';
 
-import Article from './components/Article'
 class App extends Component {
   render() {
     return (
       <div className="App">
         <div class="container grid-lg">
+        <Nav />
           <div class="columns">
-            <Article title="my tiels"
-              subtitle="imere"
+            <Article title="Title1"
+              subtitle="sub1"
               body="BBBODYYY"
               imgPath={require("./img/news-pic.jpg")}
             />
 
-            <Article title="totle2"
+            <Article title="title2"
               subtitle="sub"
               body="lorem ipsum"
               imgPath={require("./img/news-pic.jpg")}
