@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/Header';
 
+import Article from './components/Article'
 class App extends Component {
   render() {
-    const myName = "Zaid";
     return (
       <div className="App">
-        <Header />
+        <div class="container grid-lg">
+          <div class="columns">
+            <Article title="my tiels"
+              subtitle="imere"
+              body="BBBODYYY"
+              imgPath={require("./img/news-pic.jpg")}
+            />
+
+            <Article title="totle2"
+              subtitle="sub"
+              body="lorem ipsum"
+              imgPath={require("./img/news-pic.jpg")}
+            />
+          </div>
+        </div>
       </div>
     );
   }

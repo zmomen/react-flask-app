@@ -6,18 +6,18 @@ app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-tasks = [
+articles = [
     {
         'id': 1,
         'title': u'Buy groceries',
-        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol', 'Bread',
-        'done': False
+        'subtitle': u'Milk, Cheese, Pizza, Fruit, Tylenol',
+        'body': False
     },
     {
         'id': 2,
         'title': u'Learn Python',
-        'description': u'Need to find a good Python tutorial on the web',
-        'done': False
+        'subtitle': u'Need to find a good Python tutorial on the web',
+        'body': False
     }
 ]
 
@@ -27,9 +27,9 @@ def hello():
     return "Hello World!"
 
 
-@app.route('/api/tasks', methods=['GET'])
-def get_tasks():
-    return jsonify({'tasks': tasks})
+@app.route('/articles', methods=['GET'])
+def get_articles():
+    return jsonify({'articles': articles})
 
 
 # # endpoint to create a new user
