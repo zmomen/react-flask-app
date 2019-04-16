@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 
 app = Flask(__name__)
 
@@ -23,13 +23,12 @@ articles = [
 
 
 @app.route("/")
-def hello():
-    return "Hello World!"
-
-
 @app.route('/articles', methods=['GET'])
 def get_articles():
     return jsonify({'articles': articles})
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 # # endpoint to create a new user
@@ -83,7 +82,3 @@ def get_articles():
 #     db.session.commit()
 #
 #     return user_schema.jsonify(user)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
