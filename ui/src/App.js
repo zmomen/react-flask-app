@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Nav from "./components/common/Header";
-import HomePage from "./components/home/HomePage";
-import AboutPage from "./components/about/AboutPage";
-import Article from "./components/Article";
 import "./App.css";
+import AboutPage from "./components/about/AboutPage";
 import Header from "./components/common/Header";
-import PageNotFound from "./PageNotFound";
 import CoursesPage from "./components/courses/CoursesPage";
+import HomePage from "./components/home/HomePage";
+import PageNotFound from "./PageNotFound";
 
 class App extends Component {
   render() {
