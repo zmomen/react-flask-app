@@ -1,9 +1,11 @@
 import os
+from flask_sqlalchemy import SQLAlchemy
 
 from flask import Flask, jsonify, Response
 
 app = Flask(__name__)
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////crud.sqlite'
+db = SQLAlchemy(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 articles = [
@@ -26,6 +28,10 @@ articles = [
 @app.route('/articles', methods=['GET'])
 def get_articles():
     return jsonify({'articles': articles})
+
+@app.route('/articles', methods=['POST'])
+def create_article():
+    return 
 
 if __name__ == '__main__':
     app.run(debug=True)
