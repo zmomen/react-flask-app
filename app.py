@@ -1,41 +1,35 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 
-from flask import Flask, jsonify, Response
+from flask import Flask
+from flask_restplus import Api, Resource, fields
+# from models.article import Article
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////crud.sqlite'
+api = Api(app=app, version='1.0', title='Articles API',
+          description='A simple Articles API', doc="/doc")
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////news.sqlite'
+
 db = SQLAlchemy(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-articles = [
-    {
-        'id': 1,
-        'title': u'Buy groceries',
-        'subtitle': u'Milk, Cheese, Pizza, Fruit, Tylenol',
-        'body': False
-    },
-    {
-        'id': 2,
-        'title': u'Learn Python',
-        'subtitle': u'Need to find a good Python tutorial on the web',
-        'body': False
-    }
-]
+api.model('article', {
+    'id': fields.Integer(readOnly=True, description="unique identifier"),
+    'title': fields.String(required=True, description="Article title")
+})
 
 
-@app.route("/")
-@app.route('/articles', methods=['GET'])
-def get_articles():
-    return jsonify({'articles': articles})
+@api.route('/articles')
+class Article(Resource):
 
-@app.route('/articles', methods=['POST'])
-def create_article():
-    return 
+    def get(self):
+        return {"api-get": "success"}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 # # endpoint to create a new user
 # @app.route("/user", methods=["POST"])
