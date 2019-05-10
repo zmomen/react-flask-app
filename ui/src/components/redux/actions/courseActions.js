@@ -1,10 +1,10 @@
-export function getArticles(articles) {
-  return { type: "GET_ARTICLES", articles: articles };
+export function createCourse(course) {
+  return { type: "CREATE_COURSE", course: course };
 }
 
 export const getArticles = () => {
   console.warn("im here");
   return {
-    type: "GET_ARTICLES",
-  }
+    type: "GET_ARTICLES"
+  };
 };
