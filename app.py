@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask import Flask
 from flask_restplus import Api, Resource, fields
-# from models.article import Article
+from sqlalchemy import create_engine, and_, text
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 api = Api(app=app, version='1.0', title='Articles API',
@@ -19,6 +20,23 @@ api.model('article', {
     'id': fields.Integer(readOnly=True, description="unique identifier"),
     'title': fields.String(required=True, description="Article title")
 })
+
+
+# db creation
+def create_session(config):
+    engine = create_engine(config['SQLALCHEMY_DATABASE_URI'])
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    session._model_changes = {}
+    return session
+
+
+manual_session = create_session(app.config)
+
+
+@api.route('/')
+def index():
+    return {"message": 'hello world!'}
 
 
 @api.route('/articles')
