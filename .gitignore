@@ -4,4 +4,6 @@
 .vscode/
 node_modules/
 *.sqlite3
+*.sqlite
 
+rest_api_demo/

@@ -7,7 +7,7 @@ class Article(db.Model):
     title = db.Column(db.String(100), nullable=False)
     subtitle = db.Column(db.String(100), nullable=True)
     body = db.Column(db.String(1000), unique=False, nullable=True)
-    create_ts = db.Column(db.Integer, unique=True, nullable=True)
+    created_ts = db.Column(db.Integer, unique=True, nullable=True)
 
     def __repr__(self):
         return '<Article %r>' % self.title

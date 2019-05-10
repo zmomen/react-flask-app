@@ -1,52 +1,87 @@
 import os
+from flask import jsonify, Blueprint, request
+from flask_restplus import Api, Resource, fields
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from flask import Flask
-from flask_restplus import Api, Resource, fields
-from sqlalchemy import create_engine, and_, text
-from sqlalchemy.orm import sessionmaker
-
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///news.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
+app.config['RESTPLUS_VALIDATE'] = True
+app.config['RESTPLUS_MASK_SWAGGER'] = True
+app.config['ERROR_404_HELP'] = False
+db = SQLAlchemy(app)
+
+from models.article_service import create_article
+
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////news.sqlite'
-
-db = SQLAlchemy(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-api.model('article', {
-    'id': fields.Integer(readOnly=True, description="unique identifier"),
-    'title': fields.String(required=True, description="Article title")
+article_model = api.model('article', {
+    'title': fields.String(required=True, description="Article title"),
+    'subtitle': fields.String(required=True, description="Article subtitle"),
+    'body': fields.String(required=True, description="Article body")
 })
 
 
-# db creation
-def create_session(config):
-    engine = create_engine(config['SQLALCHEMY_DATABASE_URI'])
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    session._model_changes = {}
-    return session
-
-
-manual_session = create_session(app.config)
+# # db creation
+# def create_session(config):
+#     engine = create_engine(config['SQLALCHEMY_DATABASE_URI'])
+#     Session = sessionmaker(bind=engine)
+#     session = Session()
+#     session._model_changes = {}
+#     return session
+#
+#
+# manual_session = create_session(app.config)
 
 
 @api.route('/')
-def index():
-    return {"message": 'hello world!'}
+class Index(Resource):
+    def get(self):
+        return {"message": 'hello world!'}
 
 
 @api.route('/articles')
+@api.doc()
 class Article(Resource):
 
     def get(self):
-        return {"api-get": "success"}
+        return {"article": "testing"}
+
+    @api.expect(article_model)
+    def post(self):
+        print("here", request.json)
+        create_article(request.json)
+        return None, 201
 
 
-if __name__ == '__main__':
+#         article = Article(title=dict_body['title'],
+#                           subtitle=dict_body['subtitle'],
+#                           body=dict_body['body'],
+#                           created_ts=date.today())
+#         manual_session.add(article)
+#         manual_session.commit()
+#         return jsonify({'message': 'New article successfully created.'}), 200
+#
+
+
+def initialize_app(flask_app):
+    blueprint = Blueprint('api', __name__, url_prefix='/')
+    api.init_app(blueprint)
+    # api.add_namespace(blog_posts_namespace)
+    # api.add_namespace(blog_categories_namespace)
+    flask_app.register_blueprint(blueprint)
+
+    db.init_app(flask_app)
+
+
+def main():
+    initialize_app(app)
+    # log.info('>>>>> Starting development server at http://{}/api/ <<<<<'.format(app.config['SERVER_NAME']))
     app.run(debug=True)
 
 # # endpoint to create a new user
