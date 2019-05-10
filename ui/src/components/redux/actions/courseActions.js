@@ -1,3 +1,3 @@
-export function createCourse(course) {
-  return { type: "CREATE_COURSE", course: course };
+export function getArticles(articles) {
+  return { type: "GET_ARTICLES", articles: articles };
 }
