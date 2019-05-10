@@ -12,4 +12,6 @@ def create_article(data):
     db.session.commit()
 
 
-
+def get_articles():
+    return [{k: v for k, v in row.__dict__.items() if not str(k).startswith("_")}
+            for row in Article.query.all()]

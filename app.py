@@ -13,7 +13,7 @@ app.config['RESTPLUS_MASK_SWAGGER'] = True
 app.config['ERROR_404_HELP'] = False
 db = SQLAlchemy(app)
 
-from models.article_service import create_article
+from models.article_service import create_article, get_articles
 
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
@@ -27,18 +27,6 @@ article_model = api.model('article', {
 })
 
 
-# # db creation
-# def create_session(config):
-#     engine = create_engine(config['SQLALCHEMY_DATABASE_URI'])
-#     Session = sessionmaker(bind=engine)
-#     session = Session()
-#     session._model_changes = {}
-#     return session
-#
-#
-# manual_session = create_session(app.config)
-
-
 @api.route('/')
 class Index(Resource):
     def get(self):
@@ -50,30 +38,19 @@ class Index(Resource):
 class Article(Resource):
 
     def get(self):
-        return {"article": "testing"}
+        return get_articles()
 
     @api.expect(article_model)
     def post(self):
         print("here", request.json)
         create_article(request.json)
-        return None, 201
-
-
-#         article = Article(title=dict_body['title'],
-#                           subtitle=dict_body['subtitle'],
-#                           body=dict_body['body'],
-#                           created_ts=date.today())
-#         manual_session.add(article)
-#         manual_session.commit()
-#         return jsonify({'message': 'New article successfully created.'}), 200
-#
+        return "OK!", 201
 
 
 def initialize_app(flask_app):
     blueprint = Blueprint('api', __name__, url_prefix='/')
     api.init_app(blueprint)
-    # api.add_namespace(blog_posts_namespace)
-    # api.add_namespace(blog_categories_namespace)
+
     flask_app.register_blueprint(blueprint)
 
     db.init_app(flask_app)
