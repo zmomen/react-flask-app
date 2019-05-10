@@ -1,7 +1,8 @@
 import os
-from flask import jsonify, Blueprint, request
-from flask_restplus import Api, Resource, fields
+
+from flask import Blueprint, request
 from flask import Flask
+from flask_restplus import Api, Resource, fields
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -25,12 +26,6 @@ article_model = api.model('article', {
     'subtitle': fields.String(required=True, description="Article subtitle"),
     'body': fields.String(required=True, description="Article body")
 })
-
-
-@api.route('/')
-class Index(Resource):
-    def get(self):
-        return {"message": 'hello world!'}
 
 
 @api.route('/articles')
@@ -58,57 +53,4 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    # log.info('>>>>> Starting development server at http://{}/api/ <<<<<'.format(app.config['SERVER_NAME']))
     app.run(debug=True)
-
-# # endpoint to create a new user
-# @app.route("/user", methods=["POST"])
-# def add_user():
-#     username = request.json['username']
-#     email = request.json['email']
-#
-#     new_user = User(username, email)
-#
-#     db.session.add(new_user)
-#     db.session.commit()
-#
-#     return jsonify(new_user)
-#
-#
-# # endpoint to show all users
-# @app.route("/user", methods=["GET"])
-# def get_user():
-#     all_users = User.query.all()
-#     results = user_schema.dump(all_users)
-#     return jsonify(results.data)
-#
-#
-# # endpoint to get user by id
-# @app.route("/user/<id>", methods=["GET"])
-# def user_detail(id):
-#     user = User.query.get(id)
-#     return user_schema.jsonify(user)
-#
-#
-# # endpoint to update user
-# @app.route("/user/<id>", methods=["PUT"])
-# def user_update(id):
-#     user = User.query.get(id)
-#     username = request.json['username']
-#     email = request.json['email']
-#
-#     user.email = email
-#     user.username = username
-#
-#     db.session.commit()
-#     return user_schema.jsonify(user)
-#
-#
-# # endpoint to delete user
-# @app.route("/user/<id>", methods=["DELETE"])
-# def user_delete(id):
-#     user = User.query.get(id)
-#     db.session.delete(user)
-#     db.session.commit()
-#
-#     return user_schema.jsonify(user)
