@@ -14,11 +14,9 @@ class ArticlesPage extends React.Component {
 
   componentDidMount() {
     // make api call.
-    // const { loadArticles } = this.props;
+    const { getArticles } = this.props;
 
-    // let articles = [1, 2, 3]; //loadArticles();
-    console.log("all the articles");
-    // console.log(loadArticles);
+    let articles = getArticles();
     // articles.map(article => {
     //   return (
     //     <div>
@@ -27,8 +25,8 @@ class ArticlesPage extends React.Component {
     //     </div>
     //   );
     // });
-    // this.setState({ articles: articles });
-    // console.log("state here", this.state.articles);
+    this.setState({ articles: articles });
+    console.log("state here", this.state.articles);
   }
 
   render() {
@@ -38,7 +36,6 @@ class ArticlesPage extends React.Component {
 
 ArticlesPage.propTypes = {
   articles: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -48,7 +45,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  // loadArticles: articleActions.loadArticles,
+  getArticles: articleActions.getArticles,
 };
 
 export default connect(

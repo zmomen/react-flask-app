@@ -1,17 +1,12 @@
-import { ArticleApi } from "../../../api";
+import * as api from "../../../utils/api";
 
-
-// export function loadArticles() {
-//   return function(dispatch) {
-//     return ArticleApi.getArticles()
-//       .catch(error => {
-//         throw error;
-//       });
-//   };
-// }
-  
-
-// export const getArticles = articles => ({
-//     type: "GET_ARTICLES",
-//     payload: {articles}
-// });
+export const getArticles = () => {
+  return dispatch => {
+    api.getArticles().then(articles => {
+      dispatch({
+        type: "GET_ARTICLES",
+        articles
+      });
+    });
+  };
+};
