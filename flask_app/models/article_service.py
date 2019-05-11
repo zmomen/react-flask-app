@@ -1,5 +1,5 @@
-from app import db
-from models.article import Article
+from flask_app.app import db
+from flask_app.models.article import Article
 from datetime import datetime
 
 
