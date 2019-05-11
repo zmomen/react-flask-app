@@ -4,6 +4,7 @@ import "./App.css";
 import AboutPage from "./components/about/AboutPage";
 import Header from "./components/common/Header";
 import CoursesPage from "./components/courses/CoursesPage";
+import ArticlesPage from "./components/articles/ArticlesPage"
 import HomePage from "./components/home/HomePage";
 import PageNotFound from "./PageNotFound";
 
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/courses" component={CoursesPage} />
+            <Route exact path="/articles" component={ArticlesPage} />
             <Route component={PageNotFound} />
           </Switch>
           {/* <div class="columns">
