@@ -1,11 +1,22 @@
-export default function articleReducer(state = [], action) {
+const initialState = {
+  articles: null
+};
+
+export default function articleReducer(state = initialState, action) {
+  console.warn("in reducer", action);
   switch (action.type) {
-    case "CREATE_ARTICLE":
+    case "GET_ARTICLES":    
       return [
         ...state, 
-        { 
-          ...action.articles 
-        }];
+        action.payload
+      ];
+    case "CREATE_ARTICLE":
+      return [
+        ...state,
+        {
+          ...action.articles
+        }
+      ];
     default:
       return state;
   }

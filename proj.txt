@@ -4,6 +4,6 @@ Todo:
 2. create axios endpoint that calls /articles GET. DONE
 3. create action that calls the JS api. DONE 
 4. create reducer that calls that action. DONE 
-5. wire up manage courses JS page.
+5. display articles on /articles page. 
 6. setup flask api with articles create_article DONE
 7. setup flask api with articles get_all_articles DONE

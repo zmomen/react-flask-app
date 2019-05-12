@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as articleActions from "../redux/actions/articleActions";
-import PropTypes from "prop-types";
 
 class ArticlesPage extends React.Component {
   constructor(props) {
@@ -14,17 +13,8 @@ class ArticlesPage extends React.Component {
 
   componentDidMount() {
     // make api call.
-    const { getArticles } = this.props;
-
-    let articles = getArticles();
-    // articles.map(article => {
-    //   return (
-    //     <div>
-    //       <h2>{article.title}</h2>
-    //       <p>{article.body}</p>
-    //     </div>
-    //   );
-    // });
+    let articles = this.props.getArticles();
+    console.warn(articles);
     this.setState({ articles: articles });
     console.log("state here", this.state.articles);
   }
@@ -34,18 +24,17 @@ class ArticlesPage extends React.Component {
   }
 }
 
-ArticlesPage.propTypes = {
-  articles: PropTypes.array.isRequired,
-};
-
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     articles: state.articles
   };
 }
 
-const mapDispatchToProps = {
-  getArticles: articleActions.getArticles,
+const mapDispatchToProps = dispatch => {
+  console.warn("where ami ?", dispatch)
+  return {
+    getArticles: () => dispatch(articleActions.getArticles())
+  };
 };
 
 export default connect(
