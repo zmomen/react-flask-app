@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../redux/actions/courseActions";
+import * as courseActions from "../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 
 class CoursesPage extends React.Component {
@@ -51,7 +51,8 @@ CoursesPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    courses: state.courses
+    courses: state.courses,
+    articles: state.articles
   };
 }
 

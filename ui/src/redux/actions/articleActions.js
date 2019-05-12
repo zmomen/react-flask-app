@@ -1,4 +1,4 @@
-import * as api from "../../../utils/api";
+import * as api from "../../utils/api";
 
 export const getArticles = () => {
   console.warn("in action");
