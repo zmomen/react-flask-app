@@ -12,31 +12,32 @@ class ArticlesPage extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   // make api call.
-  //   // let articles = this.props.getArticles();
-  //   console.warn("called", articles);
-  //   this.setState({ articles: articles });
-  //   console.log("state here", this.state.articles);
-  // }
-
-  buildButton() {
-    return (
-      <button
-        onClick={() => {
-          this.props.getArticles();
-        }}
-      >
-        Click to Get articles
-      </button>
-    );
+  componentDidMount() {
+    // make api call.
+    this.setState({ articles: this.props.getArticles() });
   }
+
+  renderArticles() {
+    if (this.props.articles == null) {
+      return 1;
+    } else {
+      console.warn("not null", this.props.articles["articles"]["0"]);
+      return 2;
+    }
+
+    // .map(art => {
+    //   console.log("in render", art);
+    //   return art.title
+    // });
+  }
+
   render() {
-    return <div>{this.buildButton()}</div>;
+    return <div>{this.renderArticles()}</div>;
   }
 }
 
 function mapStateToProps(state) {
+  console.warn("in page", state);
   return {
     articles: state.articles
   };

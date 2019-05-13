@@ -5,6 +5,6 @@ var instance = axios.create({
 });
 
 export function getArticles() {
-  console.warn("exectued getArticles");
+  console.warn("executed getArticles");
   return instance.get("/articles");
 }
