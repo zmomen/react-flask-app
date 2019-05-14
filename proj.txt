@@ -7,8 +7,8 @@ Todo:
 5. display articles on /articles page. DONE
 6. setup flask api with articles create_article DONE
 7. setup flask api with articles get_all_articles DONE
-8. change home and about Text.  
-9. Re-order Nav links. 
+8. change home and about Text. DONE 
+9. Re-order Nav links. DONE
 10. Search bar to look up topics. 
 11. Dynamic search bar to look up existing articles 
 12. Store historical articles? rotate data for one min? hour? 
