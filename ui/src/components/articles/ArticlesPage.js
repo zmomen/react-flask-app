@@ -20,7 +20,9 @@ class ArticlesPage extends React.Component {
   renderArticles() {
     if (this.props.articles.length > 0) {
       this.articles = this.props.articles.map((article, key) => (
-        <li key={article.id}>{article.title}<Article data={article}/></li>
+        <li key={article.id}>
+          <Article data={article} />
+        </li>
       ));
       return <ul>{this.articles}</ul>;
     } else return;

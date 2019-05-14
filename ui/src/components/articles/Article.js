@@ -1,17 +1,24 @@
 import React from "react";
 
-const Article = (props) => {
+const Article = props => {
   return (
-    <>
-      <span>Title: {props.data.title}</span>
-      <br />
-      <span>subtitle: {props.data.subtitle}</span>
-      <br />
-      <span>body: {props.data.body}</span>
-      <br />
-      <span>created at: {props.data.created_ts}</span>
-      <br />
-    </>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title h5">{props.data.title}</div>
+        <div class="card-subtitle text-gray">{props.data.subtitle}</div>
+      </div>
+      <div class="card-body">{props.data.body}</div>
+      <div class="card-footer">
+        {props.data.created_ts}
+        <div class="card-image">
+          <img
+            src="img/osx-el-capitan.jpg"
+            class="img-responsive"
+            alt="img here"
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
