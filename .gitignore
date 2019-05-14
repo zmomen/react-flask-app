@@ -5,3 +5,6 @@
 node_modules/
 *.sqlite3
 *.sqlite
+
+# venv
+start-venv.sh

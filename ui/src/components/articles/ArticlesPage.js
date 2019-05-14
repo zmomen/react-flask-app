@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getArticles } from "../../redux/actions/articleActions";
+import Article from "./Article";
 
 class ArticlesPage extends React.Component {
   constructor(props) {
@@ -13,22 +14,16 @@ class ArticlesPage extends React.Component {
   }
 
   componentDidMount() {
-    // make api call.
-    this.setState({ articles: this.props.getArticles() });
+    this.props.getArticles();
   }
 
   renderArticles() {
-    if (this.props.articles == null) {
-      return 1;
-    } else {
-      console.warn("not null", this.props.articles["articles"]["0"]);
-      return 2;
-    }
-
-    // .map(art => {
-    //   console.log("in render", art);
-    //   return art.title
-    // });
+    if (this.props.articles.length > 0) {
+      this.articles = this.props.articles.map((article, key) => (
+        <li key={article.id}>{article.title}<Article data={article}/></li>
+      ));
+      return <ul>{this.articles}</ul>;
+    } else return;
   }
 
   render() {
@@ -37,7 +32,6 @@ class ArticlesPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.warn("in page", state);
   return {
     articles: state.articles
   };
