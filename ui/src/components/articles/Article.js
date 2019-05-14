@@ -11,11 +11,7 @@ const Article = props => {
       <div class="card-footer">
         {props.data.created_ts}
         <div class="card-image">
-          <img
-            src="img/osx-el-capitan.jpg"
-            class="img-responsive"
-            alt="img here"
-          />
+          {/* <img src="img/osx-el-capitan.jpg" class="img-responsive" alt="img here" /> */}
         </div>
       </div>
     </div>

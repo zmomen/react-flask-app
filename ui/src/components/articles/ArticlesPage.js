@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getArticles } from "../../redux/actions/articleActions";
 import Article from "./Article";
+import "./Article.css";
 
 class ArticlesPage extends React.Component {
   constructor(props) {
