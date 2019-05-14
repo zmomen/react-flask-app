@@ -30,7 +30,12 @@ class ArticlesPage extends React.Component {
   }
 
   render() {
-    return <div>{this.renderArticles()}</div>;
+    return (
+      <>
+        <h2>Articles</h2>
+        <div>{this.renderArticles()}</div>;
+      </>
+    );
   }
 }
 

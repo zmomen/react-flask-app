@@ -1,12 +1,10 @@
 import React from "react";
 
 const AboutPage = () => (
-    <div>
-        <h2>About</h2>
-        <p>
-            This app uses React, Redux, React Router, and many other helpful libraries.
-        </p>
-    </div>
+  <div>
+    <h2>About</h2>
+    <i>Created by zmomen using React/Redux and Python Flask. CSS Style provided by Spectre.css</i>
+  </div>
 );
 
 export default AboutPage;
