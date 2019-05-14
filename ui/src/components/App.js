@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import "spectre.css";
 import AboutPage from "./about/AboutPage";
 import Header from "./common/Header";
 import ArticlesPage from "./articles/ArticlesPage";

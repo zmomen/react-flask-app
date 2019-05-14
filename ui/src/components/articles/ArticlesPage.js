@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { getArticles } from "../../redux/actions/articleActions";
 import Article from "./Article";
 import "./Article.css";
+import SearchBar from "../common/SearchBar";
 
 class ArticlesPage extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class ArticlesPage extends React.Component {
     return (
       <>
         <h2>Articles</h2>
+        <SearchBar />
         <div>{this.renderArticles()}</div>;
       </>
     );
