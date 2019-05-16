@@ -35,7 +35,7 @@ class ArticlesPage extends React.Component {
       <>
         <h2>Articles</h2>
         <SearchBar />
-        <div>{this.renderArticles()}</div>;
+        <div>{this.renderArticles()}</div>
       </>
     );
   }
