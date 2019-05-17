@@ -4,10 +4,6 @@ const Header = () => {
   return (
     <>
       <nav>
-        <NavLink to="/" exact>
-          Home
-        </NavLink>
-        {" | "}
         <NavLink to="/articles" exact>
           Articles
         </NavLink>

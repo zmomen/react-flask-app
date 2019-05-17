@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import "./App.css";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "spectre.css";
 import AboutPage from "./about/AboutPage";
-import Header from "./common/Header";
+import "./App.css";
 import ArticlesPage from "./articles/ArticlesPage";
-import HomePage from "./home/HomePage";
+import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
+
+
+function ArticlesRedirect(props) {
+  return <Redirect to="/articles" />;
+};
 
 class App extends Component {
   render() {
@@ -15,7 +19,7 @@ class App extends Component {
         <div className="container grid-lg">
           <Header />
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={ArticlesRedirect} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/articles" component={ArticlesPage} />
             <Route component={PageNotFound} />
