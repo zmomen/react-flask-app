@@ -21,7 +21,7 @@ class ArticlesPage extends React.Component {
 
   renderArticles() {
     if (this.props.articles.length > 0) {
-      this.articles = this.props.articles.map((article, key) => (
+      this.articles = this.props.articles.map((article) => (
         <li key={article.id}>
           <Article data={article} />
         </li>

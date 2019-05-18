@@ -16,26 +16,18 @@ app.config['RESTPLUS_VALIDATE'] = True
 app.config['RESTPLUS_MASK_SWAGGER'] = True
 app.config['ERROR_404_HELP'] = False
 db = SQLAlchemy(app)
+news_api_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=16eabca179494fa391757fa32d70a9cd'
 
-from flask_app.article.article_service import get_articles, create_articles
+from flask_app.article.article_service import get_articles, save_articles
 
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
-
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 article_model = api.model('article', {
     'title': fields.String(required=True, description="Article title"),
     'subtitle': fields.String(required=True, description="Article subtitle"),
     'body': fields.String(required=True, description="Article body")
 })
-
-
-@api.route('/article/<int:id>')
-@api.doc()
-class Article(Resource):
-    def get(self, id):
-        return get_articles(id)
 
 
 @api.route('/articles')
@@ -45,7 +37,7 @@ class ArticleList(Resource):
 
     @api.expect([article_model])
     def post(self):
-        create_articles(request.json)
+        save_articles(request.json)
         return "OK!", 201
 
 
