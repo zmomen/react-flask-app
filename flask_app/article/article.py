@@ -1,4 +1,4 @@
-from flask_app. app import db
+from flask_app.app import db
 
 
 class Article(db.Model):

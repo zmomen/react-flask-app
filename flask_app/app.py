@@ -2,9 +2,9 @@ import os
 
 from flask import Blueprint, request
 from flask import Flask
+from flask_cors import CORS
 from flask_restplus import Api, Resource, fields
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
@@ -17,7 +17,7 @@ app.config['RESTPLUS_MASK_SWAGGER'] = True
 app.config['ERROR_404_HELP'] = False
 db = SQLAlchemy(app)
 
-from flask_app.models.article_service import create_article, get_articles
+from flask_app.article.article_service import get_articles, create_articles
 
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
@@ -31,17 +31,21 @@ article_model = api.model('article', {
 })
 
 
-@api.route('/articles')
+@api.route('/article/<int:id>')
 @api.doc()
 class Article(Resource):
+    def get(self, id):
+        return get_articles(id)
 
+
+@api.route('/articles')
+class ArticleList(Resource):
     def get(self):
         return get_articles()
 
-    @api.expect(article_model)
+    @api.expect([article_model])
     def post(self):
-        print("here", request.json)
-        create_article(request.json)
+        create_articles(request.json)
         return "OK!", 201
 
 
