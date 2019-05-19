@@ -19,14 +19,16 @@ db = SQLAlchemy(app)
 news_api_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=16eabca179494fa391757fa32d70a9cd'
 
 from flask_app.article.article_service import get_articles, save_articles
+from flask_app.news_api.news_api_service import fetch_top_headlines
 
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
 
 article_model = api.model('article', {
     'title': fields.String(required=True, description="Article title"),
-    'subtitle': fields.String(required=True, description="Article subtitle"),
-    'body': fields.String(required=True, description="Article body")
+    'body': fields.String(required=True, description="Article body"),
+    'img_url': fields.String(required=True, description="Image URL"),
+    'created_ts': fields.DateTime(required=False, description="Created Timestamp"),
 })
 
 
@@ -39,6 +41,12 @@ class ArticleList(Resource):
     def post(self):
         save_articles(request.json)
         return "OK!", 201
+
+
+@api.route('/news-api')
+class NewsApiList(Resource):
+    def get(self):
+        return fetch_top_headlines()
 
 
 def initialize_app(flask_app):

@@ -10,3 +10,10 @@ export const getArticles = () => {
     });
   };
 };
+
+export const saveArticle = data => {
+  return dispatch => {
+    dispatch({ type: "SAVE_ARTICLE" });
+    api.saveArticle(data);
+  };
+};
