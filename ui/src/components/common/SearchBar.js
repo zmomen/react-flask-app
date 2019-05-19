@@ -1,5 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
 
 class SearchBar extends React.Component {
   render() {
@@ -12,10 +11,7 @@ class SearchBar extends React.Component {
               type="text"
               onChange={this.props.search}
             />
-            <button
-              // onClick={this.props.search}
-              className="btn btn-primary btn-sm input-group-btn"
-            >
+            <button className="btn btn-primary btn-sm input-group-btn">
               Search
             </button>
           </div>
@@ -25,11 +21,4 @@ class SearchBar extends React.Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     articles: state.articles
-//   };
-// }
-
 export default SearchBar;
-// export default connect(mapStateToProps)(SearchBar);
