@@ -17,3 +17,14 @@ export const saveArticle = data => {
     api.saveArticle(data);
   };
 };
+
+export const getSavedArticles = () => {
+  return dispatch => {
+    api.getSavedArticles().then(articles => {
+      dispatch({
+        type: "GET_SAVED_ARTICLES",
+        payload: articles.data
+      });
+    });
+  };
+};

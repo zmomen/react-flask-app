@@ -21,6 +21,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ArticlesRedirect} />
             <Route exact path="/about" component={AboutPage} />
+            {/* <Route exact path="/saved" component={ArticlesPage} /> */}
             <Route exact path="/articles" component={ArticlesPage} />
             <Route component={PageNotFound} />
           </Switch>

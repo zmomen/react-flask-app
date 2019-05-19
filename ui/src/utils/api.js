@@ -8,7 +8,6 @@ export function getArticles() {
   return instance.get("/news-api");
 }
 
-
 export function saveArticle(data) {
     const article = {
       title: data.title,
@@ -18,3 +17,8 @@ export function saveArticle(data) {
     };
   return instance.post("/articles", [article]);
 }
+
+export function getSavedArticles() {
+  return instance.get("/articles");
+}
+

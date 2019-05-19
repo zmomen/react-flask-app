@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getArticles, saveArticle } from "../../redux/actions/articleActions";
+import {
+  getArticles,
+  saveArticle,
+  getSavedArticles
+} from "../../redux/actions/articleActions";
 import Article from "./Article";
 import "./Article.css";
 import SearchBar from "../common/SearchBar";
@@ -16,7 +20,13 @@ class ArticlesPage extends React.Component {
     this.search = this.search.bind(this);
     this.save = this.save.bind(this);
 
-    this.props.getArticles();
+    let path = props.location.pathname;
+    if (path === "/saved") {
+      console.warn("here?");
+      // this.props.getSavedArticles();
+    } else if (path === "/articles") {
+      this.props.getArticles();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +52,7 @@ class ArticlesPage extends React.Component {
     if (this.props.articles.length > 0) {
       const lists = this.state.articles.map(article => (
         <li key={article.id}>
-          <Article data={article} save={this.save}/>
+          <Article data={article} save={this.save} />
         </li>
       ));
       return <ul>{lists}</ul>;
@@ -67,7 +77,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArticles, saveArticle }, dispatch);
+  return bindActionCreators(
+    { getArticles, saveArticle, getSavedArticles },
+    dispatch
+  );
 }
 
 export default connect(
