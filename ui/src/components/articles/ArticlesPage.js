@@ -13,28 +13,41 @@ class ArticlesPage extends React.Component {
     this.state = {
       articles: []
     };
+    this.search = this.search.bind(this);
+
+    this.props.getArticles();
   }
 
-  componentDidMount() {
-    this.props.getArticles();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.articles !== this.props.articles) {
+      this.setState({ articles: nextProps.articles });
+    }
+  }
+
+  search(e) {
+    let articles = this.props.articles;
+    let searchVal = e.target.value.toLowerCase();
+    articles = articles.filter(article => article.title.toLowerCase().includes(searchVal));
+    this.setState({ articles: articles });
   }
 
   renderArticles() {
     if (this.props.articles.length > 0) {
-      this.articles = this.props.articles.map((article) => (
+      const lists = this.state.articles.map(article => (
         <li key={article.id}>
           <Article data={article} />
         </li>
       ));
-      return <ul>{this.articles}</ul>;
+      return <ul>{lists}</ul>;
     } else return;
   }
 
   render() {
     return (
       <>
-        <h2>Articles</h2>
-        <SearchBar />
+        <h2>Latest Articles</h2>
+        <SearchBar search={this.search} />
+        {/* {console.warn("state articles?", this.state)} */}
         <div>{this.renderArticles()}</div>
       </>
     );
