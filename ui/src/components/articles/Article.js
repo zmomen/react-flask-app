@@ -7,9 +7,9 @@ const Article = props => {
     <div className="card">
       <div className="card-header">
         <div className="card-title h4">{props.data.title}</div>
-        <div>{dateFmt(props.data.published)}</div>
       </div>
       <div className="card-footer">
+        <i>{dateFmt(props.data.published)}</i>
         <img
           width="300"
           src={props.data.img}
@@ -17,6 +17,10 @@ const Article = props => {
           alt="img here"
         />
         <p>{props.data.description}</p>
+        <button onClick={() => {props.save(props.data)}}
+        className="btn btn-primary btn-sm input-group-btn">
+          Save Article
+        </button>
       </div>
     </div>
   );
