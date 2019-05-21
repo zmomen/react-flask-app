@@ -16,6 +16,7 @@ def fetch_top_headlines():
         entry['description'] = article['description']
         entry['published'] = article['publishedAt']
         entry['img'] = article['urlToImage']
+        entry['url'] = article['url']
         output.append(entry)
         id += 1
 
