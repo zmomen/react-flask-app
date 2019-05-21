@@ -2,8 +2,29 @@ import React from "react";
 import { dateFmt } from "../../utils/helpers";
 import "./Article.css";
 
-const Article = props => {
-  const getTitle = (title, url) => {
+class Article extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClickShowAlert = this.handleClickShowAlert.bind(this);
+    this.state = {
+      savedStatus: false
+    };
+  }
+
+  handleClickShowAlert() {
+    this.setState({
+      savedStatus: true
+    });
+
+    setTimeout(() => {
+      this.setState({
+        savedStatus: false
+      });
+    }, 2000);
+  }
+
+  getTitle(title, url) {
     return (
       <>
         {title.substring(0, title.lastIndexOf("-"))}
@@ -13,33 +34,42 @@ const Article = props => {
         </a>
       </>
     );
-  };
-  
-  return (
-    <div className="card">
-      <div className="card-header">
-        <div className="card-title h4">
-          {getTitle(props.data.title, props.data.url)}
+  }
+  render() {
+    const { data, save } = this.props;
+
+    return (
+      <div className="card">
+        <div className="card-header">
+          <div className="card-title h4">
+            {this.getTitle(data.title, data.url)}
+          </div>
+        </div>
+        <div className="card-footer">
+          <i>{dateFmt(data.published)}</i>
+          <img
+            width="300"
+            src={data.img}
+            className="img-responsive"
+            alt="img here"
+          />
+          <p>{data.description}</p>
+          <button
+            onClick={() => {
+              save(data);
+              this.handleClickShowAlert();
+            }}
+            className="btn btn-primary btn-sm input-group-btn"
+          >
+            Save Article
+          </button>
+          <div className={`alert-success ${this.state.savedStatus ? 'alert-shown' : 'alert-hidden'}`}>
+          <strong>Article Saved!</strong> 
+        </div>
         </div>
       </div>
-      <div className="card-footer">
-        <i>{dateFmt(props.data.published)}</i>
-        <img
-          width="300"
-          src={props.data.img}
-          className="img-responsive"
-          alt="img here"
-        />
-        <p>{props.data.description}</p>
-        <button
-          onClick={() => {props.save(props.data);}}
-          className="btn btn-primary btn-sm input-group-btn"
-        >
-          Save Article
-        </button>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Article;
