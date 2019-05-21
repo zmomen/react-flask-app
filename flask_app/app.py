@@ -60,4 +60,4 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    app.run(debug=True)
+    app.run(debug=False)

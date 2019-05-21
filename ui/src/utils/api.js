@@ -13,7 +13,8 @@ export function saveArticle(data) {
       title: data.title,
       img_url: data.img,
       body: data.description,
-      created_ts: data.published
+      created_ts: data.published,
+      url: data.url
     };
   return instance.post("/articles", [article]);
 }
