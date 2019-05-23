@@ -20,13 +20,10 @@ class ArticlesPage extends React.Component {
     this.search = this.search.bind(this);
     this.save = this.save.bind(this);
 
-    let path = props.location.pathname;
-    if (path === "/saved") {
-      console.warn("here?");
-      // this.props.getSavedArticles();
-    } else if (path === "/articles") {
-      this.props.getArticles();
-    }
+    const path = this.props.location.pathname;
+    path === "/articles"
+      ? this.props.getArticles()
+      : this.props.getSavedArticles();
   }
 
   componentWillReceiveProps(nextProps) {

@@ -37,7 +37,6 @@ class Article extends React.Component {
   }
   render() {
     const { data, save } = this.props;
-
     return (
       <div className="card">
         <div className="card-header">
@@ -46,14 +45,14 @@ class Article extends React.Component {
           </div>
         </div>
         <div className="card-footer">
-          <i>{dateFmt(data.published)}</i>
+          <i>{dateFmt(data.created_ts)}</i>
           <img
             width="300"
-            src={data.img}
+            src={data.img_url}
             className="img-responsive"
             alt="img here"
           />
-          <p>{data.description}</p>
+          <p>{data.body}</p>
           <button
             onClick={() => {
               save(data);
@@ -63,9 +62,9 @@ class Article extends React.Component {
           >
             Save Article
           </button>
-          <div className={`alert-success ${this.state.savedStatus ? 'alert-shown' : 'alert-hidden'}`}>
+          <span className={`alert-success ${this.state.savedStatus ? 'alert-shown' : 'alert-hidden'}`}>
           <strong>Article Saved!</strong> 
-        </div>
+        </span>
         </div>
       </div>
     );

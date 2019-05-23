@@ -6,8 +6,8 @@ export default function articleReducer(state = initialState, action) {
       return [...action.payload];
     case "SAVE_ARTICLE":
       return [...state];
-    case "GET_SAVED_ARTICLES":
-      return [...state];
+    case "GET_SAVED_ARTICLES":      
+      return [...action.payload];
     default:
       return state;
   }
