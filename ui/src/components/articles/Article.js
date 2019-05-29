@@ -8,18 +8,18 @@ class Article extends React.Component {
 
     this.handleClickShowAlert = this.handleClickShowAlert.bind(this);
     this.state = {
-      savedStatus: false
+      alertStatus: false
     };
   }
 
   handleClickShowAlert() {
     this.setState({
-      savedStatus: true
+      alertStatus: true
     });
 
     setTimeout(() => {
       this.setState({
-        savedStatus: false
+        alertStatus: false
       });
     }, 2000);
   }
@@ -35,8 +35,62 @@ class Article extends React.Component {
       </>
     );
   }
+
+  renderButton() {
+    const { data, save, del, path } = this.props;
+    let render;
+    switch (path) {
+      case "/articles":
+        render = (
+          <>
+            <button
+              onClick={() => {
+                save(data);
+                this.handleClickShowAlert();
+              }}
+              className="btn btn-primary btn-sm input-group-btn"
+            >
+              Save Article
+            </button>
+            <span
+              className={`alert-success ${
+                this.state.alertStatus ? "alert-shown" : "alert-hidden"
+              }`}
+            >
+              <strong>Saved!</strong>
+            </span>
+          </>
+        );
+        break;
+      case "/saved":
+        render = (
+          <>
+            <button
+              onClick={() => {
+                del(data.id);
+                this.handleClickShowAlert();
+              }}
+              className="btn btn-error btn-sm input-group-btn"
+            >
+              Delete Article
+            </button>
+            <span
+              className={`alert-success ${
+                this.state.alertStatus ? "alert-shown" : "alert-hidden"
+              }`}
+            >
+              <strong>Deleted!</strong>
+            </span>
+          </>
+        );
+        break;
+      default:
+    }
+    return render;
+  }
+
   render() {
-    const { data, save } = this.props;
+    const { data } = this.props;
     return (
       <div className="card">
         <div className="card-header">
@@ -53,18 +107,7 @@ class Article extends React.Component {
             alt="img here"
           />
           <p>{data.body}</p>
-          <button
-            onClick={() => {
-              save(data);
-              this.handleClickShowAlert();
-            }}
-            className="btn btn-primary btn-sm input-group-btn"
-          >
-            Save Article
-          </button>
-          <span className={`alert-success ${this.state.savedStatus ? 'alert-shown' : 'alert-hidden'}`}>
-          <strong>Article Saved!</strong> 
-        </span>
+          {this.renderButton()}
         </div>
       </div>
     );

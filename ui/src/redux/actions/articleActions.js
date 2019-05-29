@@ -18,6 +18,13 @@ export const saveArticle = data => {
   };
 };
 
+export const deleteArticle = id => {
+  return dispatch => {
+    dispatch({ type: "DELETE_ARTICLE" });
+    api.deleteArticle(id);
+  };
+};
+
 export const getSavedArticles = () => {
   return dispatch => {
     api.getSavedArticles().then(articles => {

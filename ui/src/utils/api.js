@@ -11,12 +11,16 @@ export function getArticles() {
 export function saveArticle(data) {
     const article = {
       title: data.title,
-      img_url: data.img,
-      body: data.description,
-      created_ts: data.published,
+      img_url: data.img_url,
+      body: data.body,
+      created_ts: data.created_ts,
       url: data.url
     };
-  return instance.post("/articles", [article]);
+  return instance.post("/articles/", [article]);
+}
+
+export function deleteArticle(id) {
+  return instance.delete(`/articles/${id}`);
 }
 
 export function getSavedArticles() {

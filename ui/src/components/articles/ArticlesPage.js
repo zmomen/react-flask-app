@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import {
   getArticles,
   saveArticle,
+  deleteArticle,
   getSavedArticles
 } from "../../redux/actions/articleActions";
 import Article from "./Article";
@@ -19,6 +20,7 @@ class ArticlesPage extends React.Component {
     };
     this.search = this.search.bind(this);
     this.save = this.save.bind(this);
+    this.del = this.del.bind(this);
 
     const path = this.props.location.pathname;
     path === "/articles"
@@ -45,11 +47,24 @@ class ArticlesPage extends React.Component {
     this.props.saveArticle(data);
   }
 
+  del(id) {
+    this.props.deleteArticle(id);
+    this.props.getSavedArticles();
+    this.setState({ articles: this.props.articles });
+  }
+
   renderArticles() {
     if (this.props.articles.length > 0) {
-      const lists = this.state.articles.map(article => (
+      const lists = [].concat(this.state.articles)
+      .sort((a, b) => a.created_ts > b.created_ts)
+      .map(article => (
         <li key={article.id}>
-          <Article data={article} save={this.save} />
+          <Article
+            data={article}
+            save={this.save}
+            del={this.del}
+            path={this.props.location.pathname}
+          />
         </li>
       ));
       return <ul>{lists}</ul>;
@@ -75,7 +90,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { getArticles, saveArticle, getSavedArticles },
+    { getArticles, saveArticle, getSavedArticles, deleteArticle },
     dispatch
   );
 }
