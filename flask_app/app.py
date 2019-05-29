@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, request
 from flask import Flask
 from flask_cors import CORS
-from flask_restplus import Api, Resource, fields
+from flask_restplus import Api, Namespace, Resource, fields
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -18,34 +18,51 @@ app.config['ERROR_404_HELP'] = False
 db = SQLAlchemy(app)
 news_api_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=16eabca179494fa391757fa32d70a9cd'
 
-from flask_app.article.article_service import get_articles, save_articles
+from flask_app.article.article_service import get_articles, save_articles, delete_article
 from flask_app.news_api.news_api_service import fetch_top_headlines
 
 api = Api(app=app, version='1.0', title='Articles API',
           description='A simple Articles API', doc="/doc")
+
+ns1 = Namespace('articles', description='Article operations')
+ns2 = Namespace('news-api', description='NewsApi operations')
+
+api.add_namespace(ns1)
+api.add_namespace(ns2)
 
 article_model = api.model('article', {
     'title': fields.String(required=True, description="Article title"),
     'body': fields.String(required=True, description="Article body"),
     'img_url': fields.String(required=True, description="Image URL"),
     'created_ts': fields.DateTime(required=False, description="Created Timestamp"),
+    'url': fields.String(required=True, description="URL"),
 })
 
 
-@api.route('/articles')
+@ns1.route('/')
 class ArticleList(Resource):
     def get(self):
+        '''Retrieves all saved articles from the database'''
         return get_articles()
 
-    @api.expect([article_model])
+    @ns1.expect([article_model])
     def post(self):
+        '''Saves articles to the database'''
         save_articles(request.json)
         return "OK!", 201
 
 
-@api.route('/news-api')
+@ns1.route('/<int:id>')
+class Article(Resource):
+    def delete(self, id):
+            '''Deletes an article from the database'''  
+            delete_article(id)
+            return 'DELETED!', 204
+
+@ns2.route('/')
 class NewsApiList(Resource):
     def get(self):
+        '''Fetches top headlines and latest articles from Newsapi.org'''
         return fetch_top_headlines()
 
 
