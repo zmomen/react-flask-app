@@ -26,3 +26,9 @@ def get_articles():
     #     return fetch_top_headlines()
     return [{k: v for k, v in row.__dict__.items() if not str(k).startswith("_")}
             for row in Article.query.all()]
+
+
+def delete_article(id):
+    Article.query.filter_by(id=id).delete()
+    db.session.commit()
+
