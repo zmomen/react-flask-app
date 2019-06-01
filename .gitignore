@@ -10,3 +10,6 @@ node_modules/
 start-venv.sh
 __pycache__/
  *.pyc
+
+# configuration keys
+config.json

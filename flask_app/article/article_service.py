@@ -2,7 +2,6 @@ from datetime import datetime
 
 from flask_app.app import db
 from flask_app.article.article import Article
-from flask_app.news_api.news_api_service import fetch_top_headlines
 
 
 def save_articles(data):
@@ -31,4 +30,3 @@ def get_articles():
 def delete_article(id):
     Article.query.filter_by(id=id).delete()
     db.session.commit()
-

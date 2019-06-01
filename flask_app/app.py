@@ -1,5 +1,3 @@
-import os
-
 from flask import Blueprint, request
 from flask import Flask
 from flask_cors import CORS
@@ -9,14 +7,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///news.sqlite'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
-app.config['RESTPLUS_VALIDATE'] = True
-app.config['RESTPLUS_MASK_SWAGGER'] = True
-app.config['ERROR_404_HELP'] = False
+app.config.from_json("config.json")
 db = SQLAlchemy(app)
-news_api_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=16eabca179494fa391757fa32d70a9cd'
+news_api_url = app.config['NEWS_API_URL']
 
 from flask_app.article.article_service import get_articles, save_articles, delete_article
 from flask_app.news_api.news_api_service import fetch_top_headlines
@@ -42,12 +35,12 @@ article_model = api.model('article', {
 @ns1.route('/')
 class ArticleList(Resource):
     def get(self):
-        '''Retrieves all saved articles from the database'''
+        """Retrieves all saved articles from the database"""
         return get_articles()
 
     @ns1.expect([article_model])
     def post(self):
-        '''Saves articles to the database'''
+        """Saves articles to the database"""
         save_articles(request.json)
         return "OK!", 201
 
@@ -55,14 +48,15 @@ class ArticleList(Resource):
 @ns1.route('/<int:id>')
 class Article(Resource):
     def delete(self, id):
-            '''Deletes an article from the database'''  
-            delete_article(id)
-            return 'DELETED!', 204
+        """Deletes an article from the database"""
+        delete_article(id)
+        return 'DELETED!', 204
+
 
 @ns2.route('/')
 class NewsApiList(Resource):
     def get(self):
-        '''Fetches top headlines and latest articles from Newsapi.org'''
+        """Fetches top headlines and latest articles from newsapi.org"""
         return fetch_top_headlines()
 
 
@@ -77,4 +71,5 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    app.run(debug=False)
+    with app.app_context():
+        app.run(debug=False)
