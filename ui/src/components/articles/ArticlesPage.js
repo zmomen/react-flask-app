@@ -39,8 +39,8 @@ class ArticlesPage extends React.Component {
     let searchVal = e.target.value.toLowerCase();
     articles = articles.filter(article =>
       article.title.toLowerCase().includes(searchVal)
-      // || 
-      // article.body.toLowerCase().includes(searchVal)
+      || 
+      article.body.toLowerCase().includes(searchVal)
 
     );
     this.setState({ articles: articles });
