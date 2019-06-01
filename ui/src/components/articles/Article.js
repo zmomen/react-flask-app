@@ -45,8 +45,8 @@ class Article extends React.Component {
           <>
             <button
               onClick={() => {
-                save(data);
                 this.handleClickShowAlert();
+                save(data);
               }}
               className="btn btn-primary btn-sm input-group-btn"
             >
@@ -66,21 +66,11 @@ class Article extends React.Component {
         render = (
           <>
             <button
-              onClick={() => {
-                del(data.id);
-                this.handleClickShowAlert();
-              }}
+              onClick={() => del(data.id)}
               className="btn btn-error btn-sm input-group-btn"
             >
               Delete Article
             </button>
-            <span
-              className={`alert-success ${
-                this.state.alertStatus ? "alert-shown" : "alert-hidden"
-              }`}
-            >
-              <strong>Deleted!</strong>
-            </span>
           </>
         );
         break;

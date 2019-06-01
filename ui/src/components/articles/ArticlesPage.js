@@ -39,6 +39,9 @@ class ArticlesPage extends React.Component {
     let searchVal = e.target.value.toLowerCase();
     articles = articles.filter(article =>
       article.title.toLowerCase().includes(searchVal)
+      // || 
+      // article.body.toLowerCase().includes(searchVal)
+
     );
     this.setState({ articles: articles });
   }
@@ -48,25 +51,27 @@ class ArticlesPage extends React.Component {
   }
 
   del(id) {
+    let articles = this.state.articles;
+    articles = articles.filter((article) => article.id !== id);
     this.props.deleteArticle(id);
-    this.props.getSavedArticles();
-    this.setState({ articles: this.props.articles });
+    this.setState({ articles: articles });
   }
 
   renderArticles() {
     if (this.props.articles.length > 0) {
-      const lists = [].concat(this.state.articles)
-      .sort((a, b) => a.created_ts > b.created_ts)
-      .map(article => (
-        <li key={article.id}>
-          <Article
-            data={article}
-            save={this.save}
-            del={this.del}
-            path={this.props.location.pathname}
-          />
-        </li>
-      ));
+      const lists = []
+        .concat(this.state.articles)
+        .sort((a, b) => a.created_ts > b.created_ts)
+        .map(article => (
+          <li key={article.id}>
+            <Article
+              data={article}
+              save={this.save}
+              del={this.del}
+              path={this.props.location.pathname}
+            />
+          </li>
+        ));
       return <ul>{lists}</ul>;
     } else return;
   }
