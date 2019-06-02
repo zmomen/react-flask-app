@@ -8,7 +8,6 @@ import {
   getSavedArticles
 } from "../../redux/actions/articleActions";
 import Article from "./Article";
-import "./Article.css";
 import SearchBar from "../common/SearchBar";
 
 class ArticlesPage extends React.Component {
@@ -30,9 +29,10 @@ class ArticlesPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.location.pathname === "/saved"
+    const path = this.props.location.pathname;
+    path === "/saved"
       ? this.props.getSavedArticles()
-      : this.props.getArticles();
+      : this.handleArticleCategory(path);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.articles !== this.props.articles) {
