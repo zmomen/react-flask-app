@@ -9,7 +9,7 @@ CORS(app)
 
 app.config.from_json("config.json")
 db = SQLAlchemy(app)
-news_api_url = app.config['NEWS_API_URL']
+news_api_urls = app.config['NEWS_API_URLS']
 
 from flask_app.article.article_service import get_articles, save_articles, delete_article
 from flask_app.news_api.news_api_service import fetch_top_headlines
@@ -53,11 +53,12 @@ class Article(Resource):
         return 'DELETED!', 204
 
 
-@ns2.route('/')
+@ns2.route('/', defaults={'category': None})
+@ns2.route('/<string:category>')
 class NewsApiList(Resource):
-    def get(self):
+    def get(self, category):
         """Fetches top headlines and latest articles from newsapi.org"""
-        return fetch_top_headlines()
+        return fetch_top_headlines(category=category)
 
 
 def initialize_app(flask_app):

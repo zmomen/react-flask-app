@@ -1,9 +1,11 @@
 import requests
-from flask_app.app import news_api_url
+from flask_app.app import news_api_urls
+from flask_app.news_api.categories import CATEGORIES, DEFAULT_CATEGORY
 
 
-def fetch_top_headlines():
-    resp = requests.get(news_api_url).json()
+def fetch_top_headlines(category=None):
+    cat = category if category in CATEGORIES else DEFAULT_CATEGORY
+    resp = requests.get(news_api_urls[cat]).json()
     articles = resp['articles']
 
     output = []
