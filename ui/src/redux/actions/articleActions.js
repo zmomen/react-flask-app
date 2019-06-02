@@ -1,8 +1,8 @@
 import * as api from "../../utils/api";
 
-export const getArticles = () => {
+export const getArticles = (category) => {
   return dispatch => {
-    api.getArticles().then(articles => {
+    api.getArticles(category).then(articles => {
       dispatch({
         type: "GET_ARTICLES",
         payload: articles.data

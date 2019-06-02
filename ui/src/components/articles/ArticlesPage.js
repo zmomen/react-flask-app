@@ -21,27 +21,35 @@ class ArticlesPage extends React.Component {
     this.search = this.search.bind(this);
     this.save = this.save.bind(this);
     this.del = this.del.bind(this);
-
-    const path = this.props.location.pathname;
-    path === "/articles"
-      ? this.props.getArticles()
-      : this.props.getSavedArticles();
+    this.handleArticleCategory = this.handleArticleCategory.bind(this);
   }
 
+  handleArticleCategory(path) {
+    path = path.substring(path.lastIndexOf("/"));
+    this.props.getArticles(path);
+  }
+
+  componentDidMount() {
+    this.props.location.pathname === "/saved"
+      ? this.props.getSavedArticles()
+      : this.props.getArticles();
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.articles !== this.props.articles) {
       this.setState({ articles: nextProps.articles });
+    }
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.handleArticleCategory(nextProps.location.pathname);
     }
   }
 
   search(e) {
     let articles = this.props.articles;
     let searchVal = e.target.value.toLowerCase();
-    articles = articles.filter(article =>
-      article.title.toLowerCase().includes(searchVal)
-      || 
-      article.body.toLowerCase().includes(searchVal)
-
+    articles = articles.filter(
+      article =>
+        article.title.toLowerCase().includes(searchVal) ||
+        article.body.toLowerCase().includes(searchVal)
     );
     this.setState({ articles: articles });
   }
@@ -52,7 +60,7 @@ class ArticlesPage extends React.Component {
 
   del(id) {
     let articles = this.state.articles;
-    articles = articles.filter((article) => article.id !== id);
+    articles = articles.filter(article => article.id !== id);
     this.props.deleteArticle(id);
     this.setState({ articles: articles });
   }

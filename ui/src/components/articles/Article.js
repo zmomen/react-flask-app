@@ -40,7 +40,19 @@ class Article extends React.Component {
     const { data, save, del, path } = this.props;
     let render;
     switch (path) {
-      case "/articles":
+      case "/saved":
+        render = (
+          <>
+            <button
+              onClick={() => del(data.id)}
+              className="btn btn-error btn-sm input-group-btn"
+            >
+              Delete Article
+            </button>
+          </>
+        );
+        break;
+      default:
         render = (
           <>
             <button
@@ -62,19 +74,6 @@ class Article extends React.Component {
           </>
         );
         break;
-      case "/saved":
-        render = (
-          <>
-            <button
-              onClick={() => del(data.id)}
-              className="btn btn-error btn-sm input-group-btn"
-            >
-              Delete Article
-            </button>
-          </>
-        );
-        break;
-      default:
     }
     return render;
   }

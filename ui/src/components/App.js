@@ -7,10 +7,9 @@ import ArticlesPage from "./articles/ArticlesPage";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 
-
 function ArticlesRedirect(props) {
   return <Redirect to="/articles" />;
-};
+}
 
 class App extends Component {
   render() {
@@ -21,9 +20,19 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ArticlesRedirect} />
             <Route exact path="/about" component={AboutPage} />
-            {["/articles", "/saved"].map((path, index) => 
-            <Route path={path} component={ArticlesPage} key={index} />)}
-            <Route exact path="/articles" component={ArticlesPage} /> */}
+            {[
+              "/articles",
+              "/articles/general/",
+              "/articles/business/",
+              "/articles/entertainment/",
+              "/articles/health/",
+              "/articles/science/",
+              "/articles/sports/",
+              "/articles/technology/",
+              "/saved"
+            ].map((path, index) => (
+              <Route path={path} component={ArticlesPage} key={index} />
+            ))}
             <Route component={PageNotFound} />
           </Switch>
         </div>
