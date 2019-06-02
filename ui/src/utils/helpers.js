@@ -1,3 +1,3 @@
 export function dateFmt(stringTimestamp) {
-  return new Date(stringTimestamp).toGMTString();
+  return new Date(stringTimestamp).toLocaleString();
 }

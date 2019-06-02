@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from sqlalchemy import desc
 from flask_app.app import db
 from flask_app.article.article import Article
 
@@ -22,10 +22,10 @@ def save_articles(data):
 
 
 def get_articles():
-    #     return fetch_top_headlines()
-    return [{k: v for k, v in row.__dict__.items() if not str(k).startswith("_")}
-            for row in Article.query.all()]
-
+    test = [{k: v for k, v in row.__dict__.items() if not str(k).startswith("_")}
+            for row in Article.query.order_by(desc(Article.created_ts)).all()]
+    print(test)
+    return test
 
 def delete_article(id):
     Article.query.filter_by(id=id).delete()

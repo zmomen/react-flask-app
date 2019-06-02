@@ -15,7 +15,7 @@ const Header = () => {
             return (
               <NavLink
                 key={index}
-                className="btn btn-link"
+                className="btn"
                 to={`/articles/${article.toLowerCase()}`}
                 exact
               >
@@ -25,10 +25,10 @@ const Header = () => {
           })}
         </section>
         <section className="navbar-section">
-          <NavLink className="btn btn-link" to="/saved" exact>
+          <NavLink className="btn" to="/saved" exact>
             View Saved
           </NavLink>
-          <NavLink className="btn btn-link" to="/about" exact>
+          <NavLink className="btn" to="/about" exact>
             About
           </NavLink>
         </section>
