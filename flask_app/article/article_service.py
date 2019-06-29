@@ -24,7 +24,6 @@ def save_articles(data):
 def get_articles():
     test = [{k: v for k, v in row.__dict__.items() if not str(k).startswith("_")}
             for row in Article.query.order_by(desc(Article.created_ts)).all()]
-    print(test)
     return test
 
 def delete_article(id):
