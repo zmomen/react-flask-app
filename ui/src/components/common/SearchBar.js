@@ -12,7 +12,7 @@ class SearchBar extends React.Component {
               onChange={this.props.search}
             />
             <button className="btn btn-primary btn-sm input-group-btn">
-              Search
+              Find in page
             </button>
           </div>
         </li>
