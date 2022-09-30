@@ -1,13 +1,12 @@
 from flask import Blueprint, request
 from flask import Flask
 from flask_cors import CORS
-from flask_restplus import Api, Namespace, Resource, fields
+from flask_restx import Api, Namespace, Resource, fields
 from flask_sqlalchemy import SQLAlchemy
-
+import json 
 app = Flask(__name__)
 CORS(app)
-
-app.config.from_json("config.json")
+app.config.from_file("config.json", json.load)
 db = SQLAlchemy(app)
 news_api_urls = app.config['NEWS_API_URLS']
 
